@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import Header from './src/components/uikit/header'
 import ImageCard from './src/components/uikit/ImageCard'
-// import { Header, ImageCard} from './src/components/uikit'
+import Layout from './src/components/uikit/Layout'
 
 
 const url = 'https://raw.githubusercontent.com/react-native-village/react-native-init/master/stargate/stargate.json'
+
+
 export default class App extends Component {
   state = {
     title:'Ab Project',
@@ -15,7 +17,7 @@ export default class App extends Component {
   componentDidMount = async () => {
     try{
       const response = await fetch(url)
-      const data = await response.json
+      const data = await response.json()
       this.setState({ data })
     }catch(e){
         throw e
@@ -24,10 +26,19 @@ export default class App extends Component {
   }
 
   render() {
+    const { title, data } = this.state
     return (
         <View>
-          <Header title={this.state.title} />
-          <ImageCard />
+          <Header title={title} />
+          <ScrollView>
+            <Layout>
+                { data.map(item => (
+                  <ImageCard data={item} key={item.id}/>
+                  ))
+
+                }
+            </Layout> 
+           </ScrollView>
         </View>  
         
         

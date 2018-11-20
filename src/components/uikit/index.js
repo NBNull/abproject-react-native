@@ -1,2 +1,3 @@
-export * from './header'
-export * from './ImageCard'
+export * './ImageCard'
+export * './Layout'
+export * './header'
